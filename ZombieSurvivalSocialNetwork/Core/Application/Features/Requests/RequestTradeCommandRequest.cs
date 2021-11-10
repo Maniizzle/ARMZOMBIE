@@ -17,7 +17,6 @@ namespace ZombieSurvivalSocialNetwork.Core.Application.Features.Requests
         public int RequestedSurviviorId { get; set; }
         [Required]
         public List<RequestResource> SurvivorsRequestResource { get; set; }
-        public DateTime DateOfTrade { get; set; }
     }
 
     public class RequestResource 

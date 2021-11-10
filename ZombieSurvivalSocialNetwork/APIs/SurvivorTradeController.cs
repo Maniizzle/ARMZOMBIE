@@ -15,9 +15,18 @@ namespace ZombieSurvivalSocialNetwork.APIs
         [ProducesResponseType(typeof(Response<object>), 201)]
         [ProducesResponseType(typeof(Response<object>), 400)]
         [ProducesResponseType(typeof(Response<object>), 500)]
-        public async Task<IActionResult> RequestTrade([FromBody] RequestTradeCommand addsurvivorModel)
+        public async Task<IActionResult> RequestTrade([FromBody] RequestTradeCommand requestTrade)
         {
-            return CreatedAtAction(nameof(RequestTrade), await Mediator.Send(addsurvivorModel));
+            return CreatedAtAction(nameof(RequestTrade), await Mediator.Send(requestTrade));
         }
+
+        //[HttpPost("confirmTrade")]
+        //[ProducesResponseType(typeof(Response<object>), 201)]
+        //[ProducesResponseType(typeof(Response<object>), 400)]
+        //[ProducesResponseType(typeof(Response<object>), 500)]
+        //public async Task<IActionResult> ConfirmTrade([FromBody] ConfirmTradeCommand confirmTrade)
+        //{
+        //    return CreatedAtAction(nameof(RequestTrade), await Mediator.Send(confirmTrade));
+        //}
     }
 }
