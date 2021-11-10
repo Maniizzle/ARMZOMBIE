@@ -2,9 +2,11 @@
 ## 1. How long did you spend on the coding test?
    16hours estimated
 ## 2. What would you add to your solution if you had more time? If you didn't spend much time on the coding test then use this as an opportunity to explain what you would add.
-    1. Create a custom response model for the Survivors endpoint
-    2. Make the trade interactive using SignalR(websocket) instead of request and response through API
-    3. Design an interface to make the User experience seemless
+    1. Endpoint to Complete Trade
+    2.Create a custom response model for the Survivors endpoint
+    3. Make the trade interactive using SignalR(websocket) instead of request and response through API
+    4. Design an interface to make the User experience seemless
+    
      
 ## 3. How would you track down a performance issue in production? Have you ever had to do this?
     I have not done this before but i will address it in this manner
