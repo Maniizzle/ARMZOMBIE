@@ -11,3 +11,6 @@
 
 ## ACCESS API
  1. Kindly Browse to /swagger to acess API.
+
+### Note
+Trading not yet working
