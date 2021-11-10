@@ -45,18 +45,27 @@ namespace ZombieSurvivalSocialNetwork.Migrations
                     Gender = table.Column<int>(type: "INTEGER", nullable: false),
                     LastLocation = table.Column<string>(type: "TEXT", nullable: true),
                     IsInfected = table.Column<bool>(type: "INTEGER", nullable: false),
-                    DateInfected = table.Column<DateTime>(type: "TEXT", nullable: true),
-                    ItemId = table.Column<int>(type: "INTEGER", nullable: true)
+                    DateInfected = table.Column<DateTime>(type: "TEXT", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Survivors", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Survivors_Items_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Items",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SurvivorsTrades",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    RequestingSurvivior = table.Column<int>(type: "INTEGER", nullable: false),
+                    RequestedSurvivior = table.Column<int>(type: "INTEGER", nullable: false),
+                    RequestStatus = table.Column<int>(type: "INTEGER", nullable: false),
+                    DateOfTrade = table.Column<DateTime>(type: "TEXT", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SurvivorsTrades", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,6 +89,35 @@ namespace ZombieSurvivalSocialNetwork.Migrations
                         name: "FK_SurvivorItems_Survivors_SurvivorId",
                         column: x => x.SurvivorId,
                         principalTable: "Survivors",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SurvivorsRequestAndResponseResource",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    ItemId = table.Column<int>(type: "INTEGER", nullable: false),
+                    Count = table.Column<int>(type: "INTEGER", nullable: false),
+                    Point = table.Column<int>(type: "INTEGER", nullable: false),
+                    IsResponse = table.Column<bool>(type: "INTEGER", nullable: false),
+                    SurvivorsTradeId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SurvivorsRequestAndResponseResource", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SurvivorsRequestAndResponseResource_Items_ItemId",
+                        column: x => x.ItemId,
+                        principalTable: "Items",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SurvivorsRequestAndResponseResource_SurvivorsTrades_SurvivorsTradeId",
+                        column: x => x.SurvivorsTradeId,
+                        principalTable: "SurvivorsTrades",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -115,9 +153,14 @@ namespace ZombieSurvivalSocialNetwork.Migrations
                 column: "IsInfected");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Survivors_ItemId",
-                table: "Survivors",
+                name: "IX_SurvivorsRequestAndResponseResource_ItemId",
+                table: "SurvivorsRequestAndResponseResource",
                 column: "ItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SurvivorsRequestAndResponseResource_SurvivorsTradeId",
+                table: "SurvivorsRequestAndResponseResource",
+                column: "SurvivorsTradeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -129,10 +172,16 @@ namespace ZombieSurvivalSocialNetwork.Migrations
                 name: "SurvivorItems");
 
             migrationBuilder.DropTable(
+                name: "SurvivorsRequestAndResponseResource");
+
+            migrationBuilder.DropTable(
                 name: "Survivors");
 
             migrationBuilder.DropTable(
                 name: "Items");
+
+            migrationBuilder.DropTable(
+                name: "SurvivorsTrades");
         }
     }
 }

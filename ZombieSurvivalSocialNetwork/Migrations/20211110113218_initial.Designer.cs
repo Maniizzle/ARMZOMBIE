@@ -9,7 +9,7 @@ using ZombieSurvivalSocialNetwork.Infrastructure.Contexts;
 namespace ZombieSurvivalSocialNetwork.Migrations
 {
     [DbContext(typeof(ZombieDbContext))]
-    [Migration("20211108090127_initial")]
+    [Migration("20211110113218_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -95,9 +95,6 @@ namespace ZombieSurvivalSocialNetwork.Migrations
                     b.Property<bool>("IsInfected")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ItemId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("LastLocation")
                         .HasColumnType("TEXT");
 
@@ -107,8 +104,6 @@ namespace ZombieSurvivalSocialNetwork.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("IsInfected");
-
-                    b.HasIndex("ItemId");
 
                     b.ToTable("Survivors");
                 });
@@ -131,17 +126,63 @@ namespace ZombieSurvivalSocialNetwork.Migrations
                     b.ToTable("SurvivorItems");
                 });
 
-            modelBuilder.Entity("ZombieSurvivalSocialNetwork.Core.Domain.Entities.Survivor", b =>
+            modelBuilder.Entity("ZombieSurvivalSocialNetwork.Core.Domain.Entities.SurvivorsRequestAndResponseResource", b =>
                 {
-                    b.HasOne("ZombieSurvivalSocialNetwork.Core.Domain.Entities.Item", null)
-                        .WithMany("Survivors")
-                        .HasForeignKey("ItemId");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("IsResponse")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Point")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("SurvivorsTradeId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ItemId");
+
+                    b.HasIndex("SurvivorsTradeId");
+
+                    b.ToTable("SurvivorsRequestAndResponseResource");
+                });
+
+            modelBuilder.Entity("ZombieSurvivalSocialNetwork.Core.Domain.Entities.SurvivorsTrade", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("DateOfTrade")
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("RequestStatus")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RequestedSurvivior")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("RequestingSurvivior")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SurvivorsTrades");
                 });
 
             modelBuilder.Entity("ZombieSurvivalSocialNetwork.Core.Domain.Entities.SurvivorItem", b =>
                 {
                     b.HasOne("ZombieSurvivalSocialNetwork.Core.Domain.Entities.Item", "Item")
-                        .WithMany()
+                        .WithMany("SurvivorItems")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -157,14 +198,38 @@ namespace ZombieSurvivalSocialNetwork.Migrations
                     b.Navigation("Survivor");
                 });
 
+            modelBuilder.Entity("ZombieSurvivalSocialNetwork.Core.Domain.Entities.SurvivorsRequestAndResponseResource", b =>
+                {
+                    b.HasOne("ZombieSurvivalSocialNetwork.Core.Domain.Entities.Item", "Item")
+                        .WithMany()
+                        .HasForeignKey("ItemId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ZombieSurvivalSocialNetwork.Core.Domain.Entities.SurvivorsTrade", "SurvivorsTrade")
+                        .WithMany("SurvivorsRequestAndResponseResource")
+                        .HasForeignKey("SurvivorsTradeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Item");
+
+                    b.Navigation("SurvivorsTrade");
+                });
+
             modelBuilder.Entity("ZombieSurvivalSocialNetwork.Core.Domain.Entities.Item", b =>
                 {
-                    b.Navigation("Survivors");
+                    b.Navigation("SurvivorItems");
                 });
 
             modelBuilder.Entity("ZombieSurvivalSocialNetwork.Core.Domain.Entities.Survivor", b =>
                 {
                     b.Navigation("SurvivorItems");
+                });
+
+            modelBuilder.Entity("ZombieSurvivalSocialNetwork.Core.Domain.Entities.SurvivorsTrade", b =>
+                {
+                    b.Navigation("SurvivorsRequestAndResponseResource");
                 });
 #pragma warning restore 612, 618
         }

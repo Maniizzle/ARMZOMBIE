@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ZombieSurvivalSocialNetwork.Core.Application.Exceptions;
 using ZombieSurvivalSocialNetwork.Core.Application.Features.Requests;
 using ZombieSurvivalSocialNetwork.Core.Application.Interfaces;
+using ZombieSurvivalSocialNetwork.Core.Application.Interfaces.Repositories;
 using ZombieSurvivalSocialNetwork.Core.Application.Wrappers;
 using ZombieSurvivalSocialNetwork.Core.Domain.Entities;
 
@@ -20,8 +21,8 @@ namespace ZombieSurvivalSocialNetwork.Core.Application.Features.SurvivorTrades
         private readonly IGenericRepositoryAsync<Survivor> _survivorRepo;
         private readonly IGenericRepositoryAsync<Item> _itemRepo;
         private readonly IGenericRepositoryAsync<SurvivorsTrade> _survivorTradeRepo;
-        private readonly IGenericRepositoryAsync<SurvivorItem> _survivorItem;
-        public RequestTradeCommandHandler(IGenericRepositoryAsync<SurvivorItem> survivorItem,
+        private readonly ISurvivorItemRepositoryAsync _survivorItem;
+        public RequestTradeCommandHandler(ISurvivorItemRepositoryAsync survivorItem,
             IGenericRepositoryAsync<Item> itemRepo,
             IGenericRepositoryAsync<SurvivorsTrade> survivorTradeRepo,
             IGenericRepositoryAsync<Survivor> survivorRepo)
@@ -47,7 +48,7 @@ namespace ZombieSurvivalSocialNetwork.Core.Application.Features.SurvivorTrades
 
 
 
-            var survivorsWithItem=_survivorItem.GetByParameter(c=> Ids.Contains(c.SurvivorId)).ToList();
+            var survivorsWithItem=await _survivorItem.GetSurvivorItemsByIds(Ids);
             var requestingSurvivor= survivorsWithItem.Where(c=> c.SurvivorId==request.RequestingSurviviorId).ToList();
            var requestingSurvivorExistingPoints= requestingSurvivor.Sum(c => c.Count * c.Item.Point);
 

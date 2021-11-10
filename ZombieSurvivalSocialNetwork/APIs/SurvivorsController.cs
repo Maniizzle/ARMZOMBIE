@@ -53,7 +53,7 @@ namespace ZombieSurvivalSocialNetwork.APIs
         }
        
         [HttpGet("getsurvivors")]
-        [ProducesResponseType(typeof(Response<object>), 204)]
+        [ProducesResponseType(typeof(Response<object>), 200)]
         [ProducesResponseType(typeof(Response<object>), 400)]
         [ProducesResponseType(typeof(Response<object>), 500)]
         public async Task<IActionResult> GetSurvivors()
@@ -64,7 +64,7 @@ namespace ZombieSurvivalSocialNetwork.APIs
         }
 
         [HttpGet("getsurvivor/{id}")]
-        [ProducesResponseType(typeof(Response<object>), 204)]
+        [ProducesResponseType(typeof(Response<object>), 200)]
         [ProducesResponseType(typeof(Response<object>), 400)]
         [ProducesResponseType(typeof(Response<object>), 500)]
         public async Task<IActionResult> GetSurvivors(int id)

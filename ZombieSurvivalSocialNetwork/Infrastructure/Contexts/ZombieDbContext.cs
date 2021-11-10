@@ -23,6 +23,7 @@ namespace ZombieSurvivalSocialNetwork.Infrastructure.Contexts
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+
             builder.Entity<Survivor>().HasIndex(c => c.IsInfected);
             builder.Entity<InfectionReport>().HasKey(c => new { c.ReportedSurvivor, c.ReportingSurvivor });
             builder.Entity<SurvivorItem>().HasKey(c => new { c.ItemId, c.SurvivorId });

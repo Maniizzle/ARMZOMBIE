@@ -16,6 +16,7 @@ using ZombieSurvivalSocialNetwork.Core.Application.Interfaces;
 using ZombieSurvivalSocialNetwork.Infrastructure.Repository;
 using ZombieSurvivalSocialNetwork.Infrastructure.Repositories;
 using SHOPRURETAIL.Application.Interfaces.Repositories;
+using ZombieSurvivalSocialNetwork.Core.Application.Interfaces.Repositories;
 
 namespace ZombieSurvivalSocialNetwork.Core.Application.Extensions
 {
@@ -35,6 +36,7 @@ namespace ZombieSurvivalSocialNetwork.Core.Application.Extensions
 
             services.AddScoped(typeof(IGenericRepositoryAsync<>), typeof(GenericRepositoryAsync<>));
             services.AddScoped<IReportRepositoryAsync, ReportRepositoryAsync>();
+            services.AddScoped<ISurvivorItemRepositoryAsync, SurvivorItemRepositoryAsync>();
             
         }
         public static void AddSwaggerExtension(this IServiceCollection services)
