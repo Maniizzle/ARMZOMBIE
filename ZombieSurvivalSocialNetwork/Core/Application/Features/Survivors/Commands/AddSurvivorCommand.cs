@@ -45,7 +45,7 @@ namespace ZombieSurvivalSocialNetwork.Core.Application.Features.Survivors.Comman
                 SurvivorItems = survivorItems
             };
             await _survivorRepo.AddAsync(survivor);
-            return new Response<object>(survivor);
+            return new Response<object>(survivor.Id);
         }
     }
 }
