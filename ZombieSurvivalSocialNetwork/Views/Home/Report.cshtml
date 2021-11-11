@@ -1,0 +1,57 @@
+﻿@model ReportQueryResponse
+@{
+
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <p class="font-weight-bold">
+            Point Lost
+        </p>
+        <p>
+            @Model.PointsLost
+        </p>
+        <p class="font-weight-bold">
+            Infected Percentage
+        </p>
+        <p>
+            @Model.InfectedSurvivorPercentage per Survivor
+        </p>
+        <p class="font-weight-bold">
+            NonInfected Percentage
+        </p>
+        <p>
+            @Model.NonInfectedSurvivorPercentage per Survivor
+        </p>
+    </div>
+    <div class="col-md-8">
+        <table class="table table-striped">
+            <tr>
+                <th>
+                    Resource
+                </th>
+                <th>
+                    Average
+                </th>
+
+            </tr>
+            @foreach (var average in @Model.Averages)
+            {
+
+
+                <tr>
+                    <td>
+                        @average.NameOfResource
+                    </td>
+                    <td>
+                        @average.Averagee
+                    </td>
+
+                </tr>
+
+
+
+            }
+        </table>
+    </div>
+</div>

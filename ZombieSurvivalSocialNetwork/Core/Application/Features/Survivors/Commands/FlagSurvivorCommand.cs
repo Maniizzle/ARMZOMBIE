@@ -33,8 +33,8 @@ namespace ZombieSurvivalSocialNetwork.Core.Application.Features.Survivors.Comman
 
             if(survivors.Any(c=>c.Id==request.SurvivorToReportId && c.IsInfected)) throw new ApiException("Thank you. Survivor is known to be Infected ");
             
-            if(survivors.Any(c=>c.Id==request.SurvivorToReportId && c.IsInfected)) 
-            throw new ApiException("Infected person cannot report a survivor");
+            if(_infectionReportRepo.GetByParameter(c=>c.ReportingSurvivor==request.ReportingSurvivorId).FirstOrDefault() is not null) 
+            throw new ApiException("you cannot report a survivor twice");
 
             var infectionReports = _infectionReportRepo.GetByParameter(c => c.ReportedSurvivor == request.SurvivorToReportId).ToList();
             if (infectionReports.Count == 2)

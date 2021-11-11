@@ -1,0 +1,62 @@
+﻿@model IEnumerable<SurvivorRequestResponse>
+
+<div class="row">
+   
+        @foreach (var survivor in @Model)
+        {
+            
+            <div class="card col-md-4" >
+                <div class="card-header">
+                    @survivor.FirstName @survivor.LastName
+                </div>
+                <div class="card-body">
+                    <p>
+                 Location: @survivor.LastLocation
+                </p>
+                       <p> InfectionStatus: @survivor.IsInfected </p>
+
+                    <p>    Gender:         @survivor.Gender </p>
+
+                    
+                </div>
+            </div>
+
+            <div class="card col-md-8">
+          
+                <table class="table table-bordered">
+                    <tr>
+
+                        <th>
+                            Resource
+                        </th>
+                        <th>
+                            Count
+                        </th>
+                    </tr>
+                    @foreach (var item in survivor.Items)
+                    {
+
+                        <tr>
+
+                            <td>
+                                @item.Name
+                            </td>
+                            <td>
+                                @item.Count
+                            </td>
+
+                        </tr>
+
+
+                    }
+
+                    </table>
+
+
+
+                </div>
+        }
+    </div>
+
+    
+</div>

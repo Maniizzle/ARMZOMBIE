@@ -9,10 +9,9 @@ namespace ZombieSurvivalSocialNetwork.Core.Application.Features.Responses
 {
     public class ReportQueryResponse
     {
-        public string Name { get; set; }
         public string InfectedSurvivorPercentage { get; set; }
         public string NonInfectedSurvivorPercentage { get; set; }
-        public List<Average> Average { get; set; }
+        public List<Average> Averages { get; set; }
         public List<PointsLost> PointsLostObject { get; set; }
         public double PointsLost { get; set; }
 

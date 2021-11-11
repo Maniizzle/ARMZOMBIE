@@ -62,7 +62,7 @@ namespace ZombieSurvivalSocialNetwork.Infrastructure.Repositories
             return new ReportQueryResponse {
                 InfectedSurvivorPercentage = $"{infectedPercentage}%",
                 NonInfectedSurvivorPercentage = $"{notInfectedPercentage}%",
-                Average = average,
+                Averages = average,
                 PointsLostObject = infectedsurvivorsReport,
                 PointsLost = infectedsurvivorsReport.Sum(c => c.PointLost)
             };
