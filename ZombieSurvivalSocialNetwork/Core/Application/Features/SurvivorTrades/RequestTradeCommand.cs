@@ -59,7 +59,7 @@ namespace ZombieSurvivalSocialNetwork.Core.Application.Features.SurvivorTrades
                   (item, request) => new { Item = item.Name, ItemId=item.Id, Point = item.Point, Count = request.Count });
             var requestPoint= requestPointObject.Sum(c=>c.Count*c.Point);
             
-            if (requestPoint < requestingSurvivorExistingPoints) throw new ApiException("You dont have enough point to make that trade");
+            if (requestPoint > requestingSurvivorExistingPoints) throw new ApiException("You dont have enough point to make that trade");
 
             var requestedSurvivor = survivorsWithItem.Where(c=> c.SurvivorId==request.RequestedSurviviorId).ToList();
             for (int i = 0; i < request.SurvivorsRequestResource.Count ; i++)
